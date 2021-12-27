@@ -10,8 +10,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 	if($_SERVER['REQUEST_METHOD']=='POST'){
 		$datos = json_decode(file_get_contents("php://input"),true);
-		$inicio=$datos["inicio"];
-		//echo "da".$inicio.":";	
+		$inicio=$datos["inicio"];	
 		$final=$datos["final"];
 		$area=$datos["area"];
 		$plataforma=$datos["plataforma"];
@@ -19,19 +18,19 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 		$medio=$datos["medio"];
 		$punto=$datos["punto"];
 		$tipo=$datos["tipo"];
+		$dir='D:\\Proyect\\2020tick\\git\\pag\\db.sqlite3';
+		//$dir='C:\\Users\\Admin\\Bitnami Django Stack projects\\pag\\db.sqlite3';
+		//$dir='D:\\Proyectos\\2021\\pag\\db.sqlite3';
 		if($tipo=="punto"){
-			$respuesta2 = datapunto::Selecciona_reporte0054($inicio,$final,$area,$plataforma,$punto);	
+			$respuesta2 = datapunto::Selecciona_reporte0054($inicio,$final,$area,$plataforma,$punto,$dir);	
 		}else{
-			$respuesta2 = data::Selecciona_reporte0054($inicio,$final,$area,$plataforma,$punto);
+			$respuesta2 = data::Selecciona_reporte0054($inicio,$final,$area,$plataforma,$punto,$dir);
 		
-		}
-
-		
+		}		
 		    $time = strtotime($inicio);
 			$time2 = strtotime($final);
 			$inicio = date('d-m-Y', $time); 
 			$final = date('d-m-Y', $time2); 
-        //echo json_encode($respuesta2);
 		$respuesta = '<!DOCTYPE html>
 		<html lang="en"><head>
 			<meta charset="UTF-8">
@@ -106,9 +105,6 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 								</div>
 							</div>
 							';
-							// $data=$respuesta["nombre_padre"];
-							// $data2=$respuesta["nombre_tramite"];
-							// $data3=$respuesta["cantidad"];
 							$contador = 0;
 							$nombre_padre_aux = "";
 							$cantidad_sumada = 0;
@@ -133,9 +129,6 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 										$j++;
 										$aux3 = json_encode($obj2);
 										$aux2 = json_decode($aux3);
-                                        //echo "------------------------------------------------";
-                                       //echo var_dump($aux3);
-
 
 										$cantidad_sumada_aux = (int) $aux2->cantidad;
 										$cantidad_total_sumada = $cantidad_total_sumada + $cantidad_sumada_aux;
@@ -355,9 +348,6 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 		</html>';
 		if($respuesta){			
 			$contenedor["resultado"] = $respuesta;
-			
-			//file_put_contents('reporteFer.html', $respuesta);
-			//$arr = array_map('utf8_encode', $respuesta);
 			$respuesta = preg_replace("/[\r\n|\n|\r]+/", " ", $respuesta);
 			$respuesta = preg_replace('/[ \t]+/', ' ', $respuesta);
 			$json = json_encode($respuesta);

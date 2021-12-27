@@ -5,11 +5,11 @@ class datapunto{
     function _construct(){
     }   
 
-    static function Selecciona_reporte0054($inicio,$final,$area,$plataforma,$punto){ 
+    static function Selecciona_reporte0054($inicio,$final,$area,$plataforma,$punto,$dir){ 
     
-    //$db = new SQLite3('C:\\Users\\Admin\\Bitnami Django Stack projects\\pag\\db.sqlite3');
-    //$db = new SQLite3('D:\\Proyect\\2020tick\\git\\pag\\db.sqlite3');
-    $db = new SQLite3("D:\\Proyectos\\2021\\pag\\db.sqlite3");
+    $db = new SQLite3('C:\\Users\\Admin\\Bitnami Django Stack projects\\pag\\db.sqlite3');
+    //$db = new SQLite3($dir);
+    //$db = new SQLite3("D:\\Proyectos\\2021\\pag\\db.sqlite3");
 	
     $time = strtotime($inicio);
     $time2 = strtotime($final);
