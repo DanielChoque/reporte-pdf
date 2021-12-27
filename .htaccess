@@ -1,0 +1,14 @@
+ServerSignature Off
+Options -Indexes
+ErrorDocument 403 http://sac.impuestos.gob.bo/panel2/
+
+RewriteBase /
+RewriteEngine On
+RewriteRule ^admin/(.*)$ /back-panel/$1 [L,P]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
